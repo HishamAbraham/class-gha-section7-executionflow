@@ -41,11 +41,11 @@ jobs:
         with:
           name: test-report
           path: test.json
-  build:
+ build:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: Get code 
         uses: actions/checkout@v3
       - name: Cache dependencies
         id: cache
@@ -75,3 +75,11 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+    report:
+      if: failure()
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deploy
+          run: |
+            echo "Something went wrong"
+            echo "${{ github }}"
